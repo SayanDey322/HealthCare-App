@@ -1,7 +1,7 @@
 import React from 'react';
 import { IChild } from '../types';
 
-interface ChildCardProps {
+interface ChildCardProps { 
   child: IChild;
   onSelect: () => void;
 }
