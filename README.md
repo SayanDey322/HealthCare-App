@@ -29,10 +29,9 @@ The project is structured with:
 ## Tech Stack
 
 ### Frontend
-- React.js
-- HTML5
-- CSS3
-- JavaScript
+- Next.js
+- TailwindCSS
+- TypeScript
 
 ### Backend
 - Node.js
