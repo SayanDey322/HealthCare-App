@@ -1,4 +1,3 @@
-// Backend types and interfaces
 export interface IUser {
   _id?: string;
   name: string;
