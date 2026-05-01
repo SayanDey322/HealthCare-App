@@ -6,8 +6,7 @@ import { AuthRequest } from '../middleware/auth';
 export const addHealthRecord = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { childId, recordType, value, unit, notes } = req.body;
-
-    // Verify ownership
+    
     const child = await Child.findOne({ _id: childId, parentId: req.userId });
     if (!child) {
       res.status(404).json({ error: 'Child not found' });
@@ -35,7 +34,6 @@ export const getHealthRecords = async (req: AuthRequest, res: Response): Promise
     const { childId } = req.params;
     const { recordType } = req.query;
 
-    // Verify ownership
     const child = await Child.findOne({ _id: childId, parentId: req.userId });
     if (!child) {
       res.status(404).json({ error: 'Child not found' });
@@ -57,8 +55,6 @@ export const getHealthRecords = async (req: AuthRequest, res: Response): Promise
 export const getHealthRecordStats = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { childId, days = 30 } = req.query;
-
-    // Verify ownership
     const child = await Child.findOne({ _id: childId, parentId: req.userId });
     if (!child) {
       res.status(404).json({ error: 'Child not found' });
@@ -104,8 +100,6 @@ export const deleteHealthRecord = async (req: AuthRequest, res: Response): Promi
       res.status(404).json({ error: 'Record not found' });
       return;
     }
-
-    // Verify ownership
     const child = await Child.findOne({ _id: record.childId, parentId: req.userId });
     if (!child) {
       res.status(403).json({ error: 'Unauthorized' });

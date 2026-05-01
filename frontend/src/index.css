@@ -18,7 +18,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -49,7 +48,6 @@ html {
   animation: slideIn 0.3s ease-in-out;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

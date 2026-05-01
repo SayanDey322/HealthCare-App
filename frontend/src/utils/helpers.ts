@@ -1,5 +1,3 @@
-// Utility functions for common operations
-
 export const calculateAge = (dateOfBirth: Date): number => {
   const today = new Date();
   const birthDate = new Date(dateOfBirth);

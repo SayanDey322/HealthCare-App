@@ -7,7 +7,6 @@ export const createAppointment = async (req: AuthRequest, res: Response): Promis
   try {
     const { childId, doctorName, reason, appointmentDate } = req.body;
 
-    // Verify ownership
     const child = await Child.findOne({ _id: childId, parentId: req.userId });
     if (!child) {
       res.status(404).json({ error: 'Child not found' });
@@ -32,7 +31,6 @@ export const getAppointments = async (req: AuthRequest, res: Response): Promise<
   try {
     const { childId } = req.params;
 
-    // Verify ownership
     const child = await Child.findOne({ _id: childId, parentId: req.userId });
     if (!child) {
       res.status(404).json({ error: 'Child not found' });
@@ -56,7 +54,6 @@ export const updateAppointment = async (req: AuthRequest, res: Response): Promis
       return;
     }
 
-    // Verify ownership
     const child = await Child.findOne({ _id: appointment.childId, parentId: req.userId });
     if (!child) {
       res.status(403).json({ error: 'Unauthorized' });
@@ -83,8 +80,7 @@ export const deleteAppointment = async (req: AuthRequest, res: Response): Promis
       res.status(404).json({ error: 'Appointment not found' });
       return;
     }
-
-    // Verify ownership
+    
     const child = await Child.findOne({ _id: appointment.childId, parentId: req.userId });
     if (!child) {
       res.status(403).json({ error: 'Unauthorized' });
