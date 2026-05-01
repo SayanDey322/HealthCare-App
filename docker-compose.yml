@@ -1,0 +1,47 @@
+# Docker support for easy deployment
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: kidhealth-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: kidhealth-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/kidhealth?authSource=admin
+      - JWT_SECRET=your_secure_jwt_secret_change_this_in_production
+      - NODE_ENV=development
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend/src:/app/src
+    working_dir: /app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: kidhealth-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://backend:5000/api
+    depends_on:
+      - backend
+    working_dir: /app
+
+volumes:
+  mongodb_data:
