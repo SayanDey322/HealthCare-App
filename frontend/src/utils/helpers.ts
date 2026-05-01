@@ -1,5 +1,3 @@
-
-
 export const calculateAge = (dateOfBirth: Date): number => {
   const today = new Date();
   const birthDate = new Date(dateOfBirth);
